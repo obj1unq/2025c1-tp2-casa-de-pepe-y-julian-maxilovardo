@@ -10,8 +10,8 @@ object casaDePepeYJulian {
     }
 
     method comprar(cosa){
-        cosas.add(cosa)
         self.cuentaAsignada().extraer(cosa.precio())
+        cosas.add(cosa)
     }
 
     method cantidadDeCosasCompradas(){
@@ -31,7 +31,7 @@ object casaDePepeYJulian {
     }
 
     method esDerrochona(){
-        return cosas.average({cosa => cosa.precio()}) >= 9000
+        return cosas.sum({cosa => cosa.precio()}) >= 9000
     }
 
     method compraMasCara(){
@@ -47,11 +47,11 @@ object casaDePepeYJulian {
     }
 
     method queFaltaComprar(lista){
-        return lista.filter({elemento => self.noEstaEn(elemento,cosas)})
+        return lista.filter({elemento => not self.estaEn(elemento)})
     }
 
-    method noEstaEn(elemento,lista){
-        return not lista.contains(elemento)
+    method estaEn(elemento){
+        return cosas.contains(elemento)
     }
 
     method faltaComida(){
